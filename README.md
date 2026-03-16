@@ -7,10 +7,6 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
 ---
 
 ## Table of Contents
-
-- [Problem Statement](#problem-statement)
-- [What is Parametric Insurance](#what-is-parametric-insurance)
-- [Scope and Constraints](#scope-and-constraints)
 - [Architecture Overview](#architecture-overview)
 - [End-to-End Workflow](#end-to-end-workflow)
   - [Worker Onboarding](#1-worker-onboarding)
@@ -18,48 +14,10 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
   - [Real-Time Disruption Monitoring](#3-real-time-disruption-monitoring)
   - [Fraud Detection and Claim Automation](#4-fraud-detection-and-claim-automation)
   - [Risk Pool Monitoring](#5-risk-pool-monitoring-internal-loop)
-- [System Components](#system-components)
 - [Tech Stack](#tech-stack)
 - [Data Architecture](#data-architecture)
 - [AI and ML Models](#ai-and-ml-models)
 - [Hackathon Focus](#hackathon-focus)
-
----
-
-## Problem Statement Given
-
-India's platform-based delivery partners — working with Zomato, Swiggy, Zepto, Amazon, and Dunzo — are the backbone of the country's fast-paced digital economy. External disruptions such as extreme weather events, severe air pollution, and natural disasters can reduce their effective working hours significantly, causing a loss of **20–30% of monthly earnings**.
-
-Gig workers currently have no income protection mechanism against these uncontrollable external events. When disruptions occur, they bear the full financial loss with no safety net.
-
-**The Challenge:** Build an AI-enabled parametric insurance platform that safeguards gig workers against income loss caused by external disruptions, providing automated coverage and payouts, intelligent fraud detection, and a weekly pricing model aligned with the gig earnings cycle.
-
----
-
-## What is Parametric Insurance
-
-Unlike traditional insurance, parametric insurance pays out automatically when a pre-defined measurable trigger threshold is crossed — without the worker needing to file a claim. For example:
-
-- Rainfall exceeds 60mm in a zone within a 24-hour window
-- AQI crosses 300 (hazardous) in the worker's active zone
-- A government-declared curfew or heatwave alert is issued
-
-When any such trigger is detected, the system automatically validates eligibility and initiates a payout — the worker receives funds directly via UPI without any manual intervention.
-
----
-
-## Scope and Constraints
-
-This platform strictly covers **income disruption due to external, measurable environmental and civic events only.**
-
-The following are explicitly excluded from coverage:
-
-- Health or medical insurance
-- Life insurance
-- Accident insurance
-- Vehicle damage or repair coverage
-
-Pricing follows a **weekly premium model** to match the typical payout cadence of gig workers.
 
 ---
 
@@ -69,16 +27,23 @@ Pricing follows a **weekly premium model** to match the typical payout cadence o
 
 The system is composed of the following logical layers:
 
-- **Client Layer** — Worker App (iOS / Android via React Native) and Insurer Portal (Web)
-- **API Layer** — API Gateway handling routing, JWT authentication, and rate limiting
-- **Core Services** — Identity, Worker Profile, and Policy services backed by PostgreSQL
-- **Activity Monitoring** — Worker Activity & Earnings Service pulling data via platform APIs (Swiggy / Zomato), stored in MongoDB
-- **External Data Ingestion** — Weather, AQI, traffic, government alert, and platform demand feeds normalised into a central ingestion layer
-- **Event Streaming** — Kafka Event Bus as the backbone for real-time trigger propagation
-- **Trigger Engine** — Parametric Trigger Engine evaluating zone-level thresholds, with time-series data stored in TimescaleDB
-- **ML Layer** — AI Risk Engine backed by a Redis Feature Store, running risk scoring, premium pricing, disruption forecasting, and fraud anomaly detection
-- **Claim Automation** — Claim Engine with integrated Fraud Detection, Payment Service (Razorpay / UPI), and Notification Service (FCM / SMS / WhatsApp)
-- **Insurer Operations** — Risk Pool Service tracking premiums and payouts, with a Data Lake (S3) for historical storage
+| Component | Responsibility |
+|---|---|
+| API Gateway | Routing, JWT auth, rate limiting |
+| Identity Service | Aadhaar/PAN/OTP verification, face + device verification |
+| Worker Profile Service | City, zone, platform, activity signals |
+| Policy Service | Coverage activation, weekly premium calculation, risk pool booking |
+| Worker Activity & Earnings Service | Delivery counts, hours online, weekly baseline income (via platform API) |
+| Data Ingestion & Normalisation Layer | External feed aggregation and normalisation |
+| Parametric Trigger Engine | Zone-level threshold evaluation, Kafka event publishing |
+| Claim Engine | Eligibility check, policy validation, payout calculation |
+| Fraud Detection Service | GPS spoof detection, biometric identity checks |
+| AI Risk Engine | Risk scoring (XGBoost), premium pricing (LightGBM), disruption forecasting, fraud anomaly detection |
+| Feature Store (Redis) | Low-latency access to risk scores, earnings features, weather signals, location data |
+| Payment Service | Razorpay / UPI payout execution |
+| Notification Service | FCM push, SMS, WhatsApp delivery |
+| Risk Pool Service | Premium and payout tracking, loss ratio calculation |
+| Data Lake (S3) | Weather history, claim history, earnings logs for model training |
 
 ---
 
@@ -175,28 +140,6 @@ The Risk Pool Service continuously tracks the ratio of premiums collected to cla
 
 ---
 
-## System Components
-
-| Component | Responsibility |
-|---|---|
-| API Gateway | Routing, JWT auth, rate limiting |
-| Identity Service | Aadhaar/PAN/OTP verification, face + device verification |
-| Worker Profile Service | City, zone, platform, activity signals |
-| Policy Service | Coverage activation, weekly premium calculation, risk pool booking |
-| Worker Activity & Earnings Service | Delivery counts, hours online, weekly baseline income (via platform API) |
-| Data Ingestion & Normalisation Layer | External feed aggregation and normalisation |
-| Parametric Trigger Engine | Zone-level threshold evaluation, Kafka event publishing |
-| Claim Engine | Eligibility check, policy validation, payout calculation |
-| Fraud Detection Service | GPS spoof detection, biometric identity checks |
-| AI Risk Engine | Risk scoring (XGBoost), premium pricing (LightGBM), disruption forecasting, fraud anomaly detection |
-| Feature Store (Redis) | Low-latency access to risk scores, earnings features, weather signals, location data |
-| Payment Service | Razorpay / UPI payout execution |
-| Notification Service | FCM push, SMS, WhatsApp delivery |
-| Risk Pool Service | Premium and payout tracking, loss ratio calculation |
-| Data Lake (S3) | Weather history, claim history, earnings logs for model training |
-
----
-
 ## Tech Stack
 
 **Mobile**
@@ -230,7 +173,7 @@ The Risk Pool Service continuously tracks the ratio of premiums collected to cla
 - Amazon S3 (Data Lake) — historical weather, claim, and earnings data for model training
 
 **Payments**
-- Razorpay / UPI
+- Simulated Payment API 
 
 **Notifications**
 - Firebase Cloud Messaging (FCM)
