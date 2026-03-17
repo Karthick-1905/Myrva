@@ -44,8 +44,6 @@ This is fundamentally a problem of detecting income disruption in real time and 
 
 **Delivery Partner (Swiggy / Zomato)**
 
-**Work Pattern**
-
 This worker typically spends long hours online and earns only when orders are assigned and completed. Income is weekly, variable, and usually has very little buffer.
 
 **How Income Breaks**
