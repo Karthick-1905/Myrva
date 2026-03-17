@@ -1,33 +1,26 @@
-Iteration 1: 
-  Intilize The Code base for the frontend and backend
+Iteration 1:
+- Initialize the codebase for the frontend and backend
+- Set up the basic core database schema and migrations
+- Set up Jest test configurations and TestContainers
+- Create the Worker Onboarding API endpoint structure
+- Create the React Native onboarding pages
+- Set up cron jobs for periodic ingestion of external data sources
+- Validate documentation and set up normalization of external data
+- Platform API simulation:
+  - Worker profile history mock
+  - Real-time order simulation and worker order registration and delivery mock
+- Risk assessment pipeline scaffolding
+- Fraud detection pipeline scaffolding
+- Worker dashboard endpoints structure and development
+- React Native UI screens and integration
 
-  Setting up The Basic Core Database Schema and Migrations
-  Setting Up jest Test Configs and TestContainers
-  
-  Create The WorkerOnboarding API endpoints structure
-  Create The React Native OnBoarding Pages
+Iteration 2:
+- Internal risk pool management
+- Kafka setup and event data architecture
+- Set up logging with Prometheus and Grafana
+- Dockerize the frontend and backend
 
-  Setting Up cronjobs for periodical injection of External data Sources
-  Checks The Docs and Settting Up Normalization of The External Data
-
-  Platform Api Simulation
-      - Worker Profile History Mock 
-      - Real Time Order Simulation and Worker Order Registartion and Deleiver Mock
-
-  Risk Assessment Pipeline Scaffolding 
-
-  Fraud Detection Pipeline Scaffolding
-
-  Worker Dashboard EndPoints structure and Development
-  React Native UI screens and Intergration
-  
-Iteration 2: 
-  Internal Risk Pool Management
-  Kafka Setup and Event Data Archeiture
-  Setting Up Logging in Promtheus and Grafana
-  Dockerizing The frontend and backend
-  
-Iteration 3: 
-  Move to The Monorepo using Bazel
-  Move to Microserices if Possible
-  Move to Cloud Services and MLops setup Intilization
+Iteration 3:
+- Migrate to a monorepo using Bazel
+- Transition to microservices (if feasible)
+- Move to cloud services and initialize MLOps setup
