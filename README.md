@@ -2,7 +2,7 @@
 
 **AI-Powered Parametric Income Insurance for India's Gig Workers**
 
-Myrva is a parametric insurance platform built for platform-based gig workers (Swiggy / Zomato delivery partners) in India. It provides automated, trigger-based income protection against external disruptions - extreme weather, hazardous air quality, and government-declared disasters — with no manual claims process and weekly pricing aligned to the gig work earnings cycle.
+Myrva is a parametric insurance platform built for platform-based gig workers (Swiggy / Zomato delivery partners) in India. It provides automated, trigger-based income protection against external disruptions - extreme weather, hazardous air quality, and government-declared disasters - with no manual claims process and weekly pricing aligned to the gig work earnings cycle.
 
 ---
 
