@@ -88,7 +88,7 @@ The system is composed of the following logical layers:
 
 ## End-to-End Workflow
 
-![End-to-End Workflow Diagram](./docs/worflow.png)
+![End-to-End Workflow Diagram](./docs/workflow.png)
 
 ### 1. Worker Onboarding
 
