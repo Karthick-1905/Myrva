@@ -8,6 +8,7 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
 
 ## Table of Contents
 - [Problem Understanding](#problem-understanding)
+- [Persona Definition](#persona-definition)
 - [Architecture Overview](#architecture-overview)
 - [End-to-End Workflow](#end-to-end-workflow)
   - [Worker Onboarding](#1-worker-onboarding)
@@ -34,6 +35,30 @@ This creates a clear gap. Gig workers are exposed to frequent, external disrupti
 
 The core problem, therefore, is not the absence of insurance in general. It is the absence of a system that can identify when a worker’s earning capacity is disrupted by external conditions and compensate that loss quickly and automatically.
 This is fundamentally a problem of detecting income disruption in real time and responding to it without friction.
+
+---
+
+## Persona Definition
+
+![Delivery Partner Persona](./docs/persona.png)
+
+**Delivery Partner (Swiggy / Zomato)**
+
+**Work Pattern**
+
+This worker typically spends long hours online and earns only when orders are assigned and completed. Income is weekly, variable, and usually has very little buffer.
+
+**How Income Breaks**
+
+In practice, earnings depend on three things working together: being online, getting orders, and being able to move on roads safely. 
+
+If weather, AQI, restrictions, or demand drops interrupt any one of these, income falls immediately.
+
+**Why It Matters**
+
+Even a short disruption window can severely affect take-home pay, while fuel, rent, and food expenses continue. 
+
+The key point for Myrva is simple: this is not job loss, it is temporary income disruption. That is why coverage is designed for fast, trigger-based payouts.
 
 ---
 
@@ -204,11 +229,51 @@ All models are served via the AI Risk Engine, which reads features from the Redi
 
 ![Risk Assessment Pipeline](./docs/ra-pipeline.png)
 
-This pipeline builds the worker-level risk signal used for weekly premium pricing. It combines historical worker activity, city/zone-level disruption patterns, external signals (weather, AQI, demand volatility), and policy behavior to generate calibrated risk scores. These scores are consumed by the Policy Service for pricing and by internal monitoring for portfolio balancing.
+The risk assessment system estimates worker-level disruption risk and supports fair, adaptive weekly premium pricing.
+
+1. **Context and feature ingestion**
+Signals are collected from onboarding, worker activity, and external data streams, including city/zone risk, historical earnings volatility, disruption frequency, weather severity, AQI trends, and platform demand fluctuations.
+
+2. **Data quality and normalization**
+Raw inputs are validated, standardized, and time-aligned before modeling. Missing values, outliers, and inconsistent identifiers are handled to ensure scoring stability across workers and regions.
+
+3. **Model-based risk estimation**
+The scoring layer combines complementary models:
+- **XGBoost** estimates individual risk based on worker behavior, location, and historical exposure.
+- **Time-series / regression forecasting** projects near-term disruption probability at zone level.
+- **LightGBM pricing model** translates risk outputs into premium-sensitive pricing inputs.
+
+4. **Final risk score and pricing signal**
+A calibrated risk score is generated from worker-level and zone-level predictions, then converted into a weekly pricing signal used by the Policy Service.
+
+5. **Decision and policy application**
+Based on the risk band, the platform applies premium recommendations, coverage constraints (if any), and internal risk-pool allocation logic for portfolio balance.
 
 ### Fraud Detection Pipeline
 
 ![Fraud Detection Pipeline](./docs/fd-pipeline.png)
 
-This pipeline evaluates claims before payout and assigns a fraud likelihood score. It uses location consistency checks, identity/device linkage, behavioral anomalies, and historical claim patterns to detect suspicious activity such as GPS spoofing, duplicate identities, or impossible movement. High-risk claims are routed for manual review, while low-risk claims continue through automated payout.
+The fraud detection system filters invalid claims before payout using a layered approach that combines deterministic controls with machine learning.
+
+1. **Context and feature extraction**
+Signals are captured from both onboarding (pre-policy) and claim time (post-trigger), including location traces, device fingerprints, identity attributes, payment linkage, and behavioral patterns.
+
+2. **Rule-based validation (hard filters)**
+Deterministic checks are applied first to catch clear fraud indicators, including GPS anomalies (impossible speed or location mismatch), device or payment duplication, and identity reuse (Aadhaar/PAN). Claims that fail hard rules are rejected or routed to manual review.
+
+3. **ML-based scoring (non-obvious cases)**
+For claims that pass hard filters, a hybrid ML layer evaluates subtler risk:
+- **Isolation Forest** identifies anomalous behavior not seen in historical normal patterns.
+- **GBDT** - Gradient Boosted Decision Trees, estimates supervised fraud probability from labeled outcomes.
+
+
+4. **Decision layer**
+Operational actions are mapped from the final score:
+- `Clear`: auto-approve for payout.
+- `Manual Review`: escalate to insurer investigation.
+- `Hold`: temporarily block pending additional checks.
+- `Reject`: deny the claim.
+
+5. **Continuous learning**
+The model is continuously improved using manual-review outcomes, confirmed fraud cases, and false-positive analysis to increase precision while reducing unnecessary escalations.
 
