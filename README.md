@@ -63,7 +63,7 @@ The key point for Myrva is simple: this is not job loss, it is temporary income 
 
 ### Weekly Premium Calculation
 
-The weekly premium is computed dynamically every Monday using the following model:
+The weekly premium is computed dynamically every week using the following model:
 
 **Step 1 — Loss Fraction** (composite disruption risk for the week):
 

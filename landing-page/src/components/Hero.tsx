@@ -1,17 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { fadeIn, fadeInUp, slideInLeft, slideInRight, easeOutQuint } from "@/lib/animations";
 
 const platformIcons = [
-  { bg: 'bg-orange-500', letter: 'S', delay: 0.5 },
-  { bg: 'bg-red-600', letter: 'Z', delay: 0.6 },
-  { bg: 'bg-purple-600', letter: 'P', delay: 0.7 }
+  { src: '/swiggy.jpeg', alt: 'Swiggy', delay: 0.5 },
+  { src: '/zomato.jpeg', alt: 'Zomato', delay: 0.6 },
+  { src: '/d.jpeg', alt: 'Platform D', delay: 0.7 }
 ] as const;
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <section className="relative mb-10 mx-5 border border-gray-200 rounded-3xl max-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50">
 
       <motion.div
         className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50"
@@ -19,7 +20,7 @@ export default function Hero() {
         transition={{ duration: 0.4 }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 pt-8 pb-16 min-h-[calc(100vh-88px)]">
+      <div className="relative max-w-7xl mx-auto px-6 pb-16 min-h-[calc(100vh-88px)]">
 
         <motion.div
           className="absolute -left-20 top-8 hidden lg:block"
@@ -33,133 +34,45 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
           >
             {/* Realistic Push Pin */}
-            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-20">
-              <svg width="24" height="32" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20 rotate-45">
+              <svg width="34" height="46" viewBox="0 0 34 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Pin needle */}
                 <motion.line
-                  x1="12" y1="16" x2="12" y2="31"
+                  x1="17" y1="22" x2="17" y2="45"
                   stroke="#9CA3AF"
-                  strokeWidth="1.5"
+                  strokeWidth="2"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 0.4, delay: 0.5 }}
                 />
                 {/* Pin head - metallic rim */}
-                <circle cx="12" cy="8" r="7" fill="#B91C1C" />
-                <circle cx="12" cy="8" r="6" fill="#DC2626" />
+                <circle cx="17" cy="11" r="10" fill="#B91C1C" />
+                <circle cx="17" cy="11" r="8.8" fill="#DC2626" />
                 {/* Subtle shine effect - only on top left */}
-                <ellipse cx="9.5" cy="6.5" rx="2" ry="2.5" fill="#EF4444" opacity="0.4" />
+                <ellipse cx="13.5" cy="8.5" rx="3" ry="3.5" fill="#F87171" opacity="0.5" />
               </svg>
             </div>
 
-            {/* Note Paper with Texture */}
+            {/* Note Paper */}
             <div 
               className="w-full h-full rounded-sm shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-6 relative overflow-hidden"
               style={{
-                background: '#fef3c7',
+                background: '#f8e89b',
                 backgroundImage: `
-                  linear-gradient(135deg, #fef9c3 0%, #fef08a 50%, #fde68a 100%),
-                  repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
-                  repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)
+                  linear-gradient(135deg, rgba(252, 243, 186, 0.78) 0%, rgba(247, 227, 141, 0.72) 100%),
+                  url('/wrinked.jpeg')
                 `,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: `
+                  0 10px 30px rgba(0,0,0,0.14),
+                  inset 0 0 0 1px rgba(0,0,0,0.05),
+                  inset 0 10px 14px rgba(255,255,255,0.18)
+                `,
+                filter: 'saturate(0.98)',
               }}
             >
-              {/* Paper fiber texture overlay */}
-              <div 
-                className="absolute inset-0 opacity-25 mix-blend-overlay"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E")`,
-                }}
-              />
-              
-              {/* Paper Wrinkles - Multiple diagonal creases */}
-              <div className="absolute inset-0 opacity-20">
-                {/* Wrinkle 1 - Top left diagonal */}
-                <div 
-                  className="absolute top-0 left-0 w-full h-full"
-                  style={{
-                    background: `
-                      linear-gradient(125deg, 
-                        transparent 0%, 
-                        transparent 15%, 
-                        rgba(0,0,0,0.08) 15.5%, 
-                        rgba(255,255,255,0.3) 16%, 
-                        rgba(0,0,0,0.06) 16.5%, 
-                        transparent 17%, 
-                        transparent 100%
-                      )
-                    `,
-                  }}
-                />
-                {/* Wrinkle 2 - Center diagonal */}
-                <div 
-                  className="absolute top-0 left-0 w-full h-full"
-                  style={{
-                    background: `
-                      linear-gradient(135deg, 
-                        transparent 0%, 
-                        transparent 45%, 
-                        rgba(0,0,0,0.06) 45.5%, 
-                        rgba(255,255,255,0.25) 46%, 
-                        rgba(0,0,0,0.05) 46.5%, 
-                        transparent 47%, 
-                        transparent 100%
-                      )
-                    `,
-                  }}
-                />
-                {/* Wrinkle 3 - Bottom right */}
-                <div 
-                  className="absolute top-0 left-0 w-full h-full"
-                  style={{
-                    background: `
-                      linear-gradient(145deg, 
-                        transparent 0%, 
-                        transparent 68%, 
-                        rgba(0,0,0,0.07) 68.5%, 
-                        rgba(255,255,255,0.35) 69%, 
-                        rgba(0,0,0,0.05) 69.5%, 
-                        transparent 70%, 
-                        transparent 100%
-                      )
-                    `,
-                  }}
-                />
-                {/* Subtle horizontal wrinkle */}
-                <div 
-                  className="absolute top-0 left-0 w-full h-full"
-                  style={{
-                    background: `
-                      linear-gradient(175deg, 
-                        transparent 0%, 
-                        transparent 32%, 
-                        rgba(0,0,0,0.04) 32.5%, 
-                        rgba(255,255,255,0.2) 33%, 
-                        rgba(0,0,0,0.04) 33.5%, 
-                        transparent 34%, 
-                        transparent 100%
-                      )
-                    `,
-                  }}
-                />
-                {/* Random crease near bottom */}
-                <div 
-                  className="absolute top-0 left-0 w-full h-full"
-                  style={{
-                    background: `
-                      linear-gradient(155deg, 
-                        transparent 0%, 
-                        transparent 78%, 
-                        rgba(0,0,0,0.05) 78.5%, 
-                        rgba(255,255,255,0.25) 79%, 
-                        rgba(0,0,0,0.04) 79.5%, 
-                        transparent 80%, 
-                        transparent 100%
-                      )
-                    `,
-                  }}
-                />
-              </div>
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-white/15 via-transparent to-black/5" />
               
               {/* Handwritten Text */}
               <div className="relative z-10 flex items-center justify-center h-full pt-4">
@@ -228,7 +141,7 @@ export default function Hero() {
 
 
         <motion.div
-          className="absolute -right-20 top-0 hidden lg:block"
+          className="absolute -right-25 top-0 hidden lg:block"
           {...slideInRight}
           transition={{ duration: 1.2, delay: 0.3, ease: easeOutQuint }}
         >
@@ -258,7 +171,7 @@ export default function Hero() {
               transition={{ duration: 0.2 }}
             >
               <p className="text-xs text-gray-600 mb-1 uppercase tracking-wide font-semibold">Weekly Premium</p>
-              <p className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">₹20</p>
+              <p className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">₹39</p>
             </motion.div>
           </motion.div>
 
@@ -291,13 +204,34 @@ export default function Hero() {
         {/* Center Content */}
         <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-200px)] text-center px-4">
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-[1.1]"
+            className="text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-6 leading-[1.1]"
+            style={{
+              fontFamily: '"Permanent Marker", "Comic Sans MS", cursive',
+              textShadow: '1px 1px 0px rgba(0,0,0,0.08)',
+              letterSpacing: '0.02em',
+            }}
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.1, ease: easeOutQuint }}
           >
-            Protect your income,
+            Protect your income
             <br />
-            <span className="text-gray-400">work with peace</span>
+            <span className="relative inline-block text-gray-500">
+              work with peace
+              <svg
+                className="absolute -bottom-2 left-0 w-full"
+                height="8"
+                viewBox="0 0 180 8"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M3 6 Q45 2, 92 4 T177 6"
+                  stroke="#DC2626"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
           </motion.h1>
 
           <motion.p
@@ -320,70 +254,108 @@ export default function Hero() {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            Download APK
+            View Architecture
           </motion.button>
         </div>
 
         <motion.div
-          className="absolute -left-8 bottom-16 hidden lg:block"
+          className="absolute -left-20 bottom-6 hidden lg:block"
           {...slideInLeft}
           transition={{ duration: 0.6, delay: 0.4, ease: easeOutQuint }}
         >
           <motion.div
-            className="w-80 bg-white rounded-2xl shadow-xl p-6 transform -rotate-2"
-            whileHover={{ rotate: 0, scale: 1.02 }}
+            className="relative w-80 rounded-2xl shadow-lg px-4 py-6 transform -rotate-1 border border-slate-200 bg-white"
+            whileHover={{ rotate: 0, scale: 1.01 }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide">Active Protections</h3>
+            <div className="absolute -top-2 left-5 h-3 w-40 rounded-t-md border border-slate-200 border-b-0 bg-slate-100" />
+            <h3 className="text-sm font-semibold text-teal-600 mb-4 tracking-wide">Active Protections</h3>
 
             <div className="space-y-4">
               <motion.div
-                className="flex items-center gap-3"
-                whileHover={{ x: 4 }}
+                className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2"
+                whileHover={{ x: 2 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-2xl">🌧️</span>
+                <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 border border-slate-200">
+                  <svg className="w-5 h-5 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3C9.5 7 7 9.8 7 13a5 5 0 0010 0c0-3.2-2.5-6-5-10z" />
+                  </svg>
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-gray-900">Heavy Rain</p>
-                  <p className="text-xs text-gray-500">Coverage Active</p>
+                  {/* <p className="text-xs text-gray-500">Coverage Active</p> */}
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-20 bg-gray-200 rounded-full h-2 overflow-hidden">
+                  <div className="w-20 bg-slate-200 rounded-full h-2 overflow-hidden">
                     <motion.div
-                      className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full h-2"
+                      className="bg-slate-500 rounded-full h-2"
                       initial={{ width: 0 }}
                       animate={{ width: "60%" }}
                       transition={{ duration: 0.8, delay: 0.6, ease: easeOutQuint }}
                     />
                   </div>
-                  <span className="text-xs font-bold text-gray-700">60%</span>
+                  <span className="text-xs font-semibold text-slate-600">60%</span>
                 </div>
               </motion.div>
 
               <motion.div
-                className="flex items-center gap-3"
-                whileHover={{ x: 4 }}
+                className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2"
+                whileHover={{ x: 2 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-2xl">💨</span>
+                <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 border border-slate-200">
+                  <svg className="w-5 h-5 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 12h11" />
+                    <path d="M3 16h8" />
+                    <path d="M4 8h13" />
+                    <path d="M17 10a2 2 0 100-4" />
+                    <path d="M14 18a2 2 0 104 0" />
+                  </svg>
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-gray-900">AQI Protection</p>
-                  <p className="text-xs text-gray-500">Zone Monitored</p>
+                  {/* <p className="text-xs text-gray-500">Zone Monitored</p> */}
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-20 bg-gray-200 rounded-full h-2 overflow-hidden">
+                  <div className="w-20 bg-slate-200 rounded-full h-2 overflow-hidden">
                     <motion.div
-                      className="bg-gradient-to-r from-red-500 to-orange-600 rounded-full h-2"
+                      className="bg-slate-600 rounded-full h-2"
                       initial={{ width: 0 }}
                       animate={{ width: "80%" }}
                       transition={{ duration: 0.8, delay: 0.7, ease: easeOutQuint }}
                     />
                   </div>
-                  <span className="text-xs font-bold text-gray-700">132</span>
+                  <span className="text-xs font-semibold text-slate-600">132</span>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2"
+                whileHover={{ x: 2 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 border border-slate-200">
+                  <svg className="w-5 h-5 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 14h18" />
+                    <path d="M6 14V9a6 6 0 0112 0v5" />
+                    <path d="M8.5 18a3.5 3.5 0 007 0" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-gray-900">Flood</p>
+                  {/* <p className="text-xs text-gray-500">Threshold Watch</p> */}
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-20 bg-slate-200 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      className="bg-slate-500 rounded-full h-2"
+                      initial={{ width: 0 }}
+                      animate={{ width: "45%" }}
+                      transition={{ duration: 0.8, delay: 0.75, ease: easeOutQuint }}
+                    />
+                  </div>
+                  <span className="text-xs font-semibold text-slate-600">45%</span>
                 </div>
               </motion.div>
             </div>
@@ -401,7 +373,7 @@ export default function Hero() {
             <div className="flex items-center justify-center gap-3">
               {platformIcons.map((platform, index) => (
                 <motion.div
-                  key={platform.letter}
+                  key={platform.src}
                   className="w-20 h-20 bg-white rounded-2xl shadow-lg flex items-center justify-center"
                   initial={{ opacity: 0, y: 20, rotate: 0 }}
                   animate={{
@@ -412,8 +384,14 @@ export default function Hero() {
                   transition={{ duration: 0.5, delay: platform.delay, ease: easeOutQuint }}
                   whileHover={{ rotate: 0, scale: 1.1 }}
                 >
-                  <div className={`w-14 h-14 ${platform.bg} rounded-xl flex items-center justify-center shadow-md`}>
-                    <span className="text-white font-bold text-2xl">{platform.letter}</span>
+                  <div className="w-14 h-14 rounded-xl overflow-hidden shadow-md bg-white p-1">
+                    <Image
+                      src={platform.src}
+                      alt={platform.alt}
+                      width={56}
+                      height={56}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </motion.div>
               ))}
