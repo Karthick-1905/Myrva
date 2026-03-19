@@ -9,6 +9,7 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
 ## Table of Contents
 - [Problem Understanding](#problem-understanding)
 - [Persona Definition](#persona-definition)
+- [Policy Plan, Tiers & Event Coverage](#policy-plan-tiers--event-coverage)
 - [Architecture Overview](#architecture-overview)
 - [End-to-End Workflow](#end-to-end-workflow)
   - [Worker Onboarding](#1-worker-onboarding)
@@ -18,7 +19,7 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
   - [Risk Pool Monitoring](#5-risk-pool-monitoring-internal-loop)
 - [Tech Stack](#tech-stack)
 - [Data Architecture](#data-architecture)
-- [Development Plan](#development-plan) 
+- [Development Plan](#development-plan)
 - [AI and ML Models](#ai-and-ml-models)
 
 ---
@@ -56,6 +57,52 @@ If weather, AQI, restrictions, or demand drops interrupt any one of these, incom
 Even a short disruption window can severely affect take-home pay, while fuel, rent, and food expenses continue. 
 
 The key point for Myrva is simple: this is not job loss, it is temporary income disruption. That is why coverage is designed for fast, trigger-based payouts.
+
+---
+
+## Policy Plan, Tiers & Event Coverage
+
+### Policy Plan
+
+**One plan** — `Delivery Partner Income Shield`. Workers enroll for a **2–3 month window** and pay **week by week**.
+
+### Policy Tiers
+
+| Tier | Covered Events | Who It's For |
+|---|---|---|
+| **Basic** | Severe weather (Rain, Flood, Extreme Heat) | Workers wanting minimal, essential protection |
+| **Standard** | Basic + Air Quality (AQI) events | Full-time workers in metro zones |
+| **Premium** | Standard + Government-declared disruptions | Workers in high-risk zones or high-earnings weeks |
+
+### Coverage by Tier
+
+| Disruption | Category | Basic | Standard | Premium |
+|---|---|:---:|:---:|:---:|
+| Heavy Rain | Environmental | ✅ | ✅ | ✅ |
+| Flood | Environmental | ✅ | ✅ | ✅ |
+| Extreme Heat | Environmental | ✅ | ✅ | ✅ |
+| Hazardous AQI | Environmental | ❌ | ✅ | ✅ |
+| Severe AQI | Environmental | ❌ | ✅ | ✅ |
+| Government Curfew | Social | ❌ | ❌ | ✅ |
+| NDMA Disaster | Social | ❌ | ❌ | ✅ |
+| Local Strike | Social | ❌ | ❌ | ✅ |
+| Zone Closure | Social | ❌ | ❌ | ✅ |
+
+> **Not covered (all tiers):** Vehicle repair, fuel costs, device damage, platform-side order cancellations, personal illness.
+
+### Data Sources
+
+| Source | Trigger | Link |
+|---|---|---|
+| India Meteorological Department (IMD) | Rain, Flood, Extreme Heat, Heatwave | [mausam.imd.gov.in](https://mausam.imd.gov.in/imd_latest/contents/api.pdf) |
+| OpenWeather API | Weather signals (supplementary) | [openweathermap.org](https://openweathermap.org/guide) |
+| OpenAQ API | AQI — Hazardous / Severe levels | [docs.openaq.org](https://docs.openaq.org/) |
+| India Open Data Portal | Government alerts, zone data | [data.gov.in](https://www.data.gov.in/) |
+| MOSDAC (ISRO) | Satellite weather, flood monitoring | [mosdac.gov.in](https://www.mosdac.gov.in/) |
+| India Water Resources (FFS) | Flood / river level data | [ffs.india-water.gov.in](https://ffs.india-water.gov.in/) |
+| Google Routes API | Traffic, road closures, strike impact | [developers.google.com](https://developers.google.com/maps/documentation/routes) |
+| NDMA | Disaster declarations, curfew alerts | [ndma.gov.in](https://ndma.gov.in) |
+| Platform API (Swiggy / Zomato) | Zone closures, demand drop signals | Simulated |
 
 ---
 
@@ -218,8 +265,6 @@ The Development Plan is Linked to [Development Plan](./TODO.md)
 All models are served via the AI Risk Engine, which reads features from the Redis Feature Store and writes updated scores back for downstream consumption by the Policy and Claim services.
 
 ---
-
-
 
 ### Risk Assessment Pipeline
 
