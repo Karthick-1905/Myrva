@@ -51,9 +51,9 @@ export default function FeaturesSection() {
             </motion.p>
           </div>
 
-          <div className="w-full md:w-2/5 relative">
+          <div className="w-full md:w-2/5 relative ">
             <motion.div
-              className="relative z-20 bg-white p-8 shadow-2xl transform rotate-3 origin-bottom-right"
+              className="relative z-20 bg-white p-12 shadow-2xl transform rotate-3 origin-bottom-right"
               style={{
                 clipPath: "polygon(0 0, 100% 0, 100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0 95%)",
                 backgroundImage: 'url("/wrinked.jpeg")',
@@ -90,7 +90,7 @@ export default function FeaturesSection() {
             </motion.div>
 
             <motion.div
-              className="absolute -bottom-10 -left-10 w-48 h-48 p-6 shadow-lg z-10"
+              className="absolute -bottom-25 -left-15 w-48 h-48 p-6 -rotate-30 shadow-lg z-10"
               style={{
                 background: "#f8e89b",
                 backgroundImage: "linear-gradient(135deg, rgba(252, 243, 186, 0.78) 0%, rgba(247, 227, 141, 0.72) 100%), url('/wrinked.jpeg')",
@@ -102,7 +102,7 @@ export default function FeaturesSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.6, ease: easeOutQuint }}
             >
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+              {/* <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
                 <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 z-10 w-3 h-3 bg-black/30 rounded-full blur-[2px]" />
                 <svg width="24" height="32" viewBox="0 0 34 46" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-20">
                   <line x1="17" y1="22" x2="17" y2="45" stroke="#9CA3AF" strokeWidth="2" />
@@ -110,7 +110,7 @@ export default function FeaturesSection() {
                   <circle cx="17" cy="11" r="8.8" fill="#DC2626" />
                   <ellipse cx="13.5" cy="8.5" rx="3" ry="3.5" fill="#F87171" opacity="0.5" />
                 </svg>
-              </div>
+              </div> */}
               <div className="h-full flex items-center justify-center pt-2">
                 <p className="text-gray-900 text-center text-xl font-bold leading-tight" style={{ fontFamily: '"Permanent Marker", "Comic Sans MS", cursive' }}>
                   It just <br /> works.
