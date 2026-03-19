@@ -12,8 +12,8 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
 - [Policy Plan, Tiers & Event Coverage](#policy-plan-tiers--event-coverage)
 - [Architecture Overview](#architecture-overview)
 - [End-to-End Workflow](#end-to-end-workflow)
-- [Adversarial Defense & Anti-Spoofing Strategy](#adversarial-defense--anti-spoofing-strategy)
 - [AI and ML Models](#ai-and-ml-models)
+- [Adversarial Defense & Anti-Spoofing Strategy](#adversarial-defense--anti-spoofing-strategy)
 - [Data Architecture](#data-architecture)
 - [Development Plan](#development-plan)
 - [Tech Stack](#tech-stack)
@@ -243,55 +243,6 @@ The Risk Pool Service continuously tracks the ratio of premiums collected to cla
 
 ---
 
-## Adversarial Defense & Anti-Spoofing Strategy
-
-![Spoofing-detection](./docs/spoffing_detection.svg)
-
-To defend against coordinated GPS spoofing attacks, Myrva does not trust raw location alone. We treat every payout decision as a **multi-signal integrity problem** across behavior, device, network, and event context.
-
-### 1. The Differentiation — Real Worker vs Spoofer
-
-The decision engine combines a deterministic rule layer with an ML risk layer to separate genuinely stranded workers from synthetic claim behavior:
-
-- **Behavior continuity check:** A real partner typically shows natural session flow (online duration, order accept/reject cadence, route evolution, pause patterns). Spoof rings often show static or jumpy traces with weak activity continuity.
-- **Kinematic plausibility check:** We validate speed, acceleration, heading changes, and path smoothness. Impossible travel or repeated teleport-like jumps are high-confidence fraud indicators.
-- **Device integrity check:** We score emulator/root/jailbreak indicators, mock-location flags, sensor consistency, and app-signature integrity. A mismatch between claimed movement and on-device sensor evidence raises risk sharply.
-- **Event alignment check:** Genuine disruption claims correlate with zone-level impact (weather severity, road blocks, demand shock, nearby worker patterns). Isolated claims with no local corroboration are treated as suspicious.
-- **Ring-level coordination check:** We detect synchronized anomalies (many users claiming from identical coordinates/IP ranges/device families within narrow windows), which strongly indicates organized fraud.
-
-The output is a calibrated `Fraud Score (0-1)` used with policy eligibility checks before payout.
-
-### 2. The Data — Signals Beyond Basic GPS
-
-To detect sophisticated spoofing campaigns, the fraud pipeline analyzes cross-layer features:
-
-- **Device and app trust:** OS build fingerprints, emulator signals, root/jailbreak status, mock-location status, app attestation results, app signature validity.
-- **Motion and sensor telemetry:** accelerometer/gyroscope consistency, jitter profile, heading change entropy, stop-go rhythm, route smoothness.
-- **Network intelligence:** IP subnet reputation, carrier consistency, cell-tower triangulation, VPN/proxy indicators, sudden IP/device switching.
-- **Platform activity context:** active orders, delivery attempts, acceptance timeline, session continuity, historical baseline vs current behavior.
-- **Environmental corroboration:** weather API severity, local road conditions, curfew/disaster alerts, zone-level demand contraction.
-- **Graph and linkage signals:** shared devices, reused payout accounts, clustered claim timing, repeated co-location patterns across many worker IDs.
-
-These features are evaluated in both **real-time scoring** (claim-time defense) and **batch graph analytics** (ring discovery and model retraining).
-
-### 3. The UX Balance — Protect Honest Workers While Blocking Fraud
-
-Myrva uses progressive friction, not blanket rejection, so workers facing real disruption are not unfairly penalized.
-
-- **Low risk:** auto-approve and payout immediately.
-- **Medium risk:** soft hold with fast recheck (additional passive telemetry + short retry window).
-- **High risk:** manual review with priority SLA and clear reason code.
-- **Critical risk:** reject and block when multiple high-confidence fraud signals agree.
-
-For worker fairness, we apply the following safeguards:
-
-- **No single-signal denial:** a network drop or GPS glitch alone cannot trigger hard rejection.
-- **Explainable outcomes:** workers see plain-language status (`Approved`, `Recheck in progress`, `Manual review`) and next expected timeline.
-- **Appeal + recovery path:** legitimate workers can complete lightweight re-verification without restarting policy enrollment.
-- **False-positive control loop:** manual-review outcomes feed back into threshold tuning to reduce unnecessary escalations over time.
-
-This keeps the liquidity pool protected against organized spoofing while ensuring genuine delivery partners continue to receive fast, fair payouts during real disruptions.
- 
 ## AI and ML Models
 
 | Model | Algorithm | Purpose |
@@ -358,6 +309,55 @@ Operational actions are mapped from the final score:
 The model is continuously improved using manual-review outcomes, confirmed fraud cases, and false-positive analysis to increase precision while reducing unnecessary escalations.
 
 
+## Adversarial Defense & Anti-Spoofing Strategy
+
+![Spoofing-detection](./docs/spoffing_detection.svg)
+
+To defend against coordinated GPS spoofing attacks, Myrva does not trust raw location alone. We treat every payout decision as a **multi-signal integrity problem** across behavior, device, network, and event context.
+
+### 1. The Differentiation — Real Worker vs Spoofer
+
+The decision engine combines a deterministic rule layer with an ML risk layer to separate genuinely stranded workers from synthetic claim behavior:
+
+- **Behavior continuity check:** A real partner typically shows natural session flow (online duration, order accept/reject cadence, route evolution, pause patterns). Spoof rings often show static or jumpy traces with weak activity continuity.
+- **Kinematic plausibility check:** We validate speed, acceleration, heading changes, and path smoothness. Impossible travel or repeated teleport-like jumps are high-confidence fraud indicators.
+- **Device integrity check:** We score emulator/root/jailbreak indicators, mock-location flags, sensor consistency, and app-signature integrity. A mismatch between claimed movement and on-device sensor evidence raises risk sharply.
+- **Event alignment check:** Genuine disruption claims correlate with zone-level impact (weather severity, road blocks, demand shock, nearby worker patterns). Isolated claims with no local corroboration are treated as suspicious.
+- **Ring-level coordination check:** We detect synchronized anomalies (many users claiming from identical coordinates/IP ranges/device families within narrow windows), which strongly indicates organized fraud.
+
+The output is a calibrated `Fraud Score (0-1)` used with policy eligibility checks before payout.
+
+### 2. The Data — Signals Beyond Basic GPS
+
+To detect sophisticated spoofing campaigns, the fraud pipeline analyzes cross-layer features:
+
+- **Device and app trust:** OS build fingerprints, emulator signals, root/jailbreak status, mock-location status, app attestation results, app signature validity.
+- **Motion and sensor telemetry:** accelerometer/gyroscope consistency, jitter profile, heading change entropy, stop-go rhythm, route smoothness.
+- **Network intelligence:** IP subnet reputation, carrier consistency, cell-tower triangulation, VPN/proxy indicators, sudden IP/device switching.
+- **Platform activity context:** active orders, delivery attempts, acceptance timeline, session continuity, historical baseline vs current behavior.
+- **Environmental corroboration:** weather API severity, local road conditions, curfew/disaster alerts, zone-level demand contraction.
+- **Graph and linkage signals:** shared devices, reused payout accounts, clustered claim timing, repeated co-location patterns across many worker IDs.
+
+These features are evaluated in both **real-time scoring** (claim-time defense) and **batch graph analytics** (ring discovery and model retraining).
+
+### 3. The UX Balance — Protect Honest Workers While Blocking Fraud
+
+Myrva uses progressive friction, not blanket rejection, so workers facing real disruption are not unfairly penalized.
+
+- **Low risk:** auto-approve and payout immediately.
+- **Medium risk:** soft hold with fast recheck (additional passive telemetry + short retry window).
+- **High risk:** manual review with priority SLA and clear reason code.
+- **Critical risk:** reject and block when multiple high-confidence fraud signals agree.
+
+For worker fairness, we apply the following safeguards:
+
+- **No single-signal denial:** a network drop or GPS glitch alone cannot trigger hard rejection.
+- **Explainable outcomes:** workers see plain-language status (`Approved`, `Recheck in progress`, `Manual review`) and next expected timeline.
+- **Appeal + recovery path:** legitimate workers can complete lightweight re-verification without restarting policy enrollment.
+- **False-positive control loop:** manual-review outcomes feed back into threshold tuning to reduce unnecessary escalations over time.
+
+This keeps the liquidity pool protected against organized spoofing while ensuring genuine delivery partners continue to receive fast, fair payouts during real disruptions.
+ 
 ## Data Architecture
 
 ![Database DB Schema Diagram](./docs/db.png)

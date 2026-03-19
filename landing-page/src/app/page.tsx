@@ -5,12 +5,14 @@ import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";
 import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer";
+import FeaturesSection from "@/components/FeaturesSection";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <Hero />
+      <FeaturesSection />
       <HowItWorks />
       <Pricing />
       <Footer />

@@ -45,7 +45,7 @@ export default function Header() {
           {navItems.map((item, index) => (
             <motion.a
               key={item}
-              href={item === 'Features' ? '/features' : `/#${item.toLowerCase().replace(/ /g, '-')}`}
+              href={`/#${item.toLowerCase().replace(/ /g, '-')}`}
               className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ export default function Header() {
             {navItems.map((item) => (
               <a
                 key={`mobile-${item}`}
-                href={item === 'Features' ? '/features' : `/#${item.toLowerCase().replace(/ /g, '-')}`}
+                href={`/#${item.toLowerCase().replace(/ /g, '-')}`}
                 onClick={() => setIsMenuOpen(false)}
                 className="block px-4 py-3 text-gray-700 font-medium"
               >

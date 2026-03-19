@@ -116,7 +116,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Checkmark Card */}
-          <motion.div
+          {/* <motion.div
             className="ml-16 mt-6 w-24 h-24 bg-white rounded-2xl shadow-xl flex items-center justify-center transform rotate-6"
             initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
             animate={{ opacity: 1, scale: 1, rotate: 6 }}
@@ -136,7 +136,7 @@ export default function Hero() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </motion.svg>
             </div>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
 
 
@@ -146,7 +146,7 @@ export default function Hero() {
           transition={{ duration: 1.2, delay: 0.3, ease: easeOutQuint }}
         >
 
-          <motion.div
+          {/* <motion.div
             className="w-72 bg-white rounded-2xl shadow-2xl p-6 transform rotate-3"
             whileHover={{ rotate: 0, scale: 1.02 }}
             transition={{ duration: 0.5 }}
@@ -173,7 +173,7 @@ export default function Hero() {
               <p className="text-xs text-gray-600 mb-1 uppercase tracking-wide font-semibold">Weekly Premium</p>
               <p className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">₹39</p>
             </motion.div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Dice Image */}
           <motion.div

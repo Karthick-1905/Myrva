@@ -125,19 +125,35 @@ export default function HowItWorks() {
                   <div className="absolute -top-4 -right-4 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shadow-lg border-2 border-white z-20 transform rotate-12">
                     <span className="text-xl" style={{ fontFamily: '"Permanent Marker"' }}>📍</span>
                   </div>
-                  <div className="w-full h-32 bg-slate-100 rounded-2xl mb-4 overflow-hidden relative">
-                    {/* Mock Map Background */}
-                    <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#94a3b8_2px,transparent_2px)] [background-size:12px_12px]" />
-                    <svg className="absolute inset-0 w-full h-full text-slate-300" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor" strokeWidth="2" fill="none">
-                      <path d="M10,50 Q40,10 70,40 T120,60" />
-                      <path d="M0,80 Q30,90 60,60 T100,20" />
+                  <div className="w-full h-32 bg-slate-100 rounded-2xl mb-4 overflow-hidden relative border border-slate-200">
+                    <div className="absolute inset-0 bg-[linear-gradient(135deg,#f8fafc_0%,#eef2f7_100%)]" />
+
+                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
+                      <path d="M0 24 L100 18" stroke="#dbe2ea" strokeWidth="2.2" />
+                      <path d="M0 52 L100 46" stroke="#dbe2ea" strokeWidth="2.2" />
+                      <path d="M0 78 L100 72" stroke="#dbe2ea" strokeWidth="2.2" />
+                      <path d="M12 0 L20 100" stroke="#dbe2ea" strokeWidth="2" />
+                      <path d="M42 0 L50 100" stroke="#dbe2ea" strokeWidth="2" />
+                      <path d="M72 0 L80 100" stroke="#dbe2ea" strokeWidth="2" />
+
+                      <path d="M-8 62 Q12 50 28 55 T60 62 T108 56" stroke="#93c5fd" strokeWidth="4" strokeLinecap="round" opacity="0.9" />
+
+                      <path d="M8 82 Q24 72 35 68 T58 60 T92 48" stroke="#0f766e" strokeWidth="2.8" strokeLinecap="round" strokeDasharray="5 3" />
                     </svg>
-                    {/* Active Zone Blob */}
-                    <motion.div 
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-teal-500/20 border-2 border-teal-500 rounded-full blur-[1px]"
-                      animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    />
+
+                    <motion.div
+                      className="absolute left-[58%] top-[40%] -translate-x-1/2 -translate-y-1/2"
+                      animate={{ y: [0, -2, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <div className="w-4 h-4 rounded-full bg-red-500 border-2 border-white shadow" />
+                    </motion.div>
+
+                    <div className="absolute left-[20%] top-[62%] -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-teal-600 border-2 border-white shadow" />
+
+                    <div className="absolute right-3 bottom-3 px-2 py-0.5 rounded-md bg-white/90 text-[10px] font-bold text-slate-600 border border-slate-200">
+                      Zone 4 • Active
+                    </div>
                   </div>
                   <div className="space-y-3">
                     <div className="h-4 bg-gray-200 rounded-full w-3/4"></div>
@@ -213,6 +229,7 @@ export default function HowItWorks() {
                     <svg viewBox="0 0 100 40" fill="none" className="w-full text-teal-500 drop-shadow-sm">
                       <path d="M10,30 Q40,10 90,20 L80,10 M90,20 L80,30" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
                       <text x="20" y="15" fill="currentColor" fontSize="12" fontFamily='"Permanent Marker", cursive' transform="rotate(-5)">always on!</text>
+                      <text x="20" y="31" fill="currentColor" fontSize="8.5" fontFamily='"Permanent Marker", cursive'>during active hours</text>
                     </svg>
                   </motion.div>
                 </motion.div>
