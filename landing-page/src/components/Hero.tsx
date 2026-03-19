@@ -12,7 +12,7 @@ const platformIcons = [
 
 export default function Hero() {
   return (
-    <section className="relative mb-10 mx-5 border border-gray-200 rounded-3xl max-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <section className="relative mb-10 mx-4 lg:mx-5 border border-gray-200 rounded-3xl max-h-none lg:max-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50">
 
       <motion.div
         className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50"
@@ -20,7 +20,7 @@ export default function Hero() {
         transition={{ duration: 0.4 }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 pb-16 min-h-[calc(100vh-88px)]">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-11 sm:py-9 lg:pb-16 lg:pt-0 min-h-0 lg:min-h-[calc(100vh-88px)]">
 
         <motion.div
           className="absolute -left-20 top-8 hidden lg:block"
@@ -201,10 +201,34 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
+        {/* Mobile - Floating Dice */}
+        <motion.div
+          className="absolute left-[-12px] top-4 z-10 lg:hidden"
+          initial={{ opacity: 0, scale: 0.9, rotate: -16 }}
+          animate={{ opacity: 1, scale: 1, rotate: -7 }}
+          transition={{ duration: 0.5, delay: 0.08, ease: easeOutQuint }}
+          whileTap={{ scale: 0.96 }}
+        >
+          <div className="w-20 h-20 bg-white rounded-2xl shadow-xl flex items-center justify-center">
+            <div className="relative w-11 h-11">
+              <div className="absolute inset-0 grid grid-cols-2 gap-1.5">
+                <motion.div
+                  className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-md shadow-sm"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: easeOutQuint }}
+                />
+                <div className="bg-gray-900 rounded-md shadow-sm" />
+                <div className="bg-gray-900 rounded-md shadow-sm" />
+                <div className="bg-gray-900 rounded-md shadow-sm" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Center Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-200px)] text-center px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-0 lg:min-h-[calc(100vh-200px)] text-center px-4 sm:px-4 pt-15 sm:pt-5 lg:pt-0">
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-6 leading-[1.1]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 mb-5 sm:mb-6 leading-[1.1]"
             style={{
               fontFamily: '"Permanent Marker", "Comic Sans MS", cursive',
               textShadow: '1px 1px 0px rgba(0,0,0,0.08)',
@@ -235,16 +259,53 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p
-            className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-gray-600 mb-7 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.2, ease: easeOutQuint }}
           >
             AI-powered parametric insurance for delivery partners. Automatic payouts when weather, AQI, or disruptions stop you from working.
           </motion.p>
 
+          {/* Mobile - Works with Platform */}
+          <motion.div
+            className="relative z-10 mt-3 mb-12 lg:hidden"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.28, ease: easeOutQuint }}
+          >
+            <p className="text-xs font-bold text-gray-800 mb-3 text-center uppercase tracking-wide">Works with your platform</p>
+            <div className="flex items-center justify-center gap-3">
+              {platformIcons.map((platform, index) => (
+                <motion.div
+                  key={`mobile-${platform.src}`}
+                  className="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center"
+                  initial={{ opacity: 0, y: 14, rotate: 0 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    rotate: index === 0 ? 4 : index === 1 ? -4 : 2,
+                  }}
+                  transition={{ duration: 0.45, delay: platform.delay, ease: easeOutQuint }}
+                  whileHover={{ rotate: 0, scale: 1.06 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="w-11 h-11 rounded-xl overflow-hidden shadow-sm bg-white p-1">
+                    <Image
+                      src={platform.src}
+                      alt={platform.alt}
+                      width={44}
+                      height={44}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
           {/* CTA Button */}
           <motion.button
-            className="px-12 py-5 bg-teal-600 text-white text-lg font-bold rounded-2xl cursor-pointer hover:bg-teal-700 transition-all shadow-2xl"
+            className="w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-4 bg-teal-600 text-white text-sm sm:text-base font-bold rounded-2xl cursor-pointer hover:bg-teal-700 transition-all shadow-2xl"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3, ease: easeOutQuint }}
