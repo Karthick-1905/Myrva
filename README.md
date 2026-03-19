@@ -25,16 +25,15 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
 
 ## Problem Understanding
 
-A delivery worker’s job looks flexible on the surface, but their income is tightly coupled to conditions they don’t control. They don’t earn a fixed salary - they earn only when they are able to stay online, accept orders, and complete deliveries. That means their weekly income is not just variable, it is fragile.
+A delivery worker’s job appears flexible, but their income is tightly tied to factors they don’t control. They don’t have a fixed salary, they earn only when they’re online, accepting orders, and completing deliveries. This makes their weekly income not just variable, but fragile.
 
-Workers often plan expenses assuming steady daily income, but external factors like bad weather, pollution, or local restrictions can suddenly reduce or eliminate their ability to work. The real issue is not a single lost day, but the cumulative impact losing multiple days in a week directly affects essentials like fuel, rent, and food, with no safety net in place. 
+Workers often plan expenses assuming steady daily earnings, but external factors like bad weather, pollution, or local restrictions can suddenly prevent them from working. The issue isn’t just a single lost day it’s the cumulative effect, where multiple missed days directly impact essentials like fuel, rent, and food, with no safety net.
 
-Traditional insurance systems fail to address this because there is no physical damage or injury to claim, making the loss invisible to insurers but immediate and critical for the worker.
+Traditional insurance doesn’t address this gap, since there’s no physical damage or injury to claim. The loss remains invisible to insurers, even though it is immediate and critical for the worker.
 
-This creates a clear gap. Gig workers are exposed to frequent, external disruptions that reduce their income, but there is no system that recognizes or compensates for these events. Any solution that depends on manual claims or delayed processing will fail, because the impact is immediate and short-term.
+As a result, gig workers face frequent income disruptions caused by external conditions, yet there’s no system to recognize or compensate for them. Any solution relying on manual claims or delays will fail, because the impact is immediate and short-term.
 
-The core problem, therefore, is not the absence of insurance in general. It is the absence of a system that can identify when a worker’s earning capacity is disrupted by external conditions and compensate that loss quickly and automatically.
-This is fundamentally a problem of detecting income disruption in real time and responding to it without friction.
+The core problem isn’t the absence of insurance itself, but the lack of a system that can detect disruptions in earning capacity in real time and compensate for them quickly and automatically.
 
 ---
 
@@ -199,8 +198,7 @@ The Risk Pool Service continuously tracks the ratio of premiums collected to cla
 
 ## Data Architecture
 
-db design - pendinggg
-and add bout feature store, mongo, timescaledb
+![Database DB Schema Diagram](./docs/db.png)
 
 ---
 
