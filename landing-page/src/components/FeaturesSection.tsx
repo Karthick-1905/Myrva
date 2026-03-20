@@ -121,60 +121,99 @@ export default function FeaturesSection() {
         </div>
       </section>
 
-      <section className="py-32 relative bg-teal-50 overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
+      <section className="relative overflow-hidden bg-teal-50 py-24 lg:py-30">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.2),transparent_45%)]" />
+          <div className="absolute bottom-0 right-0 h-full w-full bg-[radial-gradient(circle_at_75%_90%,rgba(16,185,129,0.16),transparent_45%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            className="text-center"
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: easeOutQuint }}
           >
-            <h2 className="text-5xl md:text-7xl font-black text-teal-900 mb-8 tracking-tighter">
-              No forms.<br />
-              No calls.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-400">Just payouts.</span>
+            <h2 className="text-5xl md:text-7xl font-black text-teal-900 tracking-tighter leading-[0.95]">
+              No forms.
+              <br />
+              No calls.
+              <br />
+              <span
+                className="inline-block text-emerald-600"
+                style={{ fontFamily: '"Permanent Marker", "Comic Sans MS", cursive', fontWeight: "normal", letterSpacing: "0.03em" }}
+              >
+                Just payout.
+              </span>
             </h2>
-            <p className="text-2xl text-teal-800/80 leading-relaxed font-medium max-w-2xl mx-auto">
-              We don&apos;t wait for you to claim. When the data says you can&apos;t work, the money moves to your wallet instantly.
+            <p className="mt-5 text-base md:text-lg text-teal-800/80 font-semibold">Trigger hits. Rules match. Money lands.</p>
+          </motion.div>
+
+          <div className="mx-auto mt-14 max-w-6xl">
+            <div className="grid gap-4 rounded-[2rem] border border-white/80 bg-white/60 p-4 shadow-[0_20px_50px_rgba(13,148,136,0.14)] backdrop-blur-sm md:grid-cols-2 md:p-6">
+              <motion.div
+                className="rounded-3xl border border-red-100 bg-red-50/75 p-5 md:p-6"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, ease: easeOutQuint }}
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-red-600">Old Claim System</p>
+                <h3 className="mt-3 text-2xl font-black text-gray-900">Wait. Explain. Prove.</h3>
+                <div className="mt-5 space-y-2">
+                  {["Forms and screenshots", "Support calls and back-and-forth", "Payout arrives late"].map((item) => (
+                    <div key={item} className="rounded-xl bg-white/80 px-4 py-3 text-sm font-semibold text-gray-600">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-emerald-50/75 p-5 md:p-6"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.1, ease: easeOutQuint }}
+              >
+                <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-200/50 blur-2xl" />
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">Myrva Way</p>
+                <h3 className="mt-3 text-2xl font-black text-gray-900">Detect. Validate. Settle.</h3>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {[
+                    { label: "Live Trigger", value: "AQI 412" },
+                    { label: "Policy", value: "Standard" },
+                    { label: "Payout", value: "+ ₹850" },
+                  ].map((item) => (
+                    <div key={item.label} className="rounded-2xl border border-emerald-100 bg-white/85 px-3 py-3 text-center">
+                      <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-700">{item.label}</p>
+                      <p className="mt-1 text-xl font-black text-gray-900">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-4 text-sm font-semibold text-emerald-800">No claim submission. No waiting room.</p>
+              </motion.div>
+            </div>
+          </div>
+
+          <motion.div
+            className="mt-10 flex justify-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.4, ease: easeOutQuint }}
+          >
+            <p
+              className="text-xl text-teal-700"
+              style={{ fontFamily: '"Permanent Marker", "Comic Sans MS", cursive', transform: "rotate(-1.8deg)" }}
+            >
+              Clear trigger. Clear payout.
             </p>
           </motion.div>
         </div>
-
-        <motion.div
-          className="absolute left-[10%] bottom-[10%] bg-white p-4 rounded-2xl shadow-xl border border-teal-100"
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.3, type: "spring", bounce: 0.4 }}
-        >
-          <div className="flex items-center gap-4">
-            <div className="bg-emerald-100 text-emerald-600 p-3 rounded-full">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
-            </div>
-            <div>
-              <div className="text-sm text-gray-500 font-bold">UPI Transfer</div>
-              <div className="text-xl font-black text-gray-900">+ ₹850.00</div>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="absolute right-[15%] top-[20%] bg-white p-4 rounded-2xl shadow-xl border border-teal-100 hidden md:block"
-          initial={{ opacity: 0, y: -100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5, type: "spring", bounce: 0.4 }}
-        >
-          <div className="flex items-center gap-4">
-            <div className="bg-teal-100 text-teal-600 p-3 rounded-full">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            </div>
-            <div>
-              <div className="text-sm text-gray-500 font-bold">Trigger Hit</div>
-              <div className="text-xl font-black text-gray-900">Processing</div>
-            </div>
-          </div>
-        </motion.div>
       </section>
     </>
   );

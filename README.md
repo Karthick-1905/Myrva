@@ -22,6 +22,8 @@ Myrva is a parametric insurance platform built for platform-based gig workers (S
 
 ## Problem Understanding
 
+![Problem Positioning](./docs/problem_u.png)
+
 A delivery worker’s job appears flexible, but their income is tightly tied to factors they don’t control. They don’t have a fixed salary, they earn only when they’re online, accepting orders, and completing deliveries. This makes their weekly income not just variable, but fragile.
 
 Workers often plan expenses assuming steady daily earnings, but external factors like bad weather, pollution, or local restrictions can suddenly prevent them from working. The issue isn’t just a single lost day it’s the cumulative effect, where multiple missed days directly impact essentials like fuel, rent, and food, with no safety net.
