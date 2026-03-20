@@ -60,29 +60,29 @@ The key point for Myrva is simple: this is not job loss, it is temporary income 
 
 ### Policy Plan
 
-**One plan** — `Delivery Partner Income Shield`. Workers enroll for a **2 month window** and pay **week by week**.
+**One plan** - `Delivery Partner Income Shield`. Workers enroll for a **2 month window** and pay **week by week**.
 
 ### Weekly Premium Calculation
 
 The weekly premium is computed dynamically every week using the following model:
 
-**Step 1 — Loss Fraction** (composite disruption risk for the week):
+**Step 1 - Loss Fraction** (composite disruption risk for the week):
 
 $$L_f = 1 - \prod_{i=1}^{n}(1 - P_i \times S_i)$$
 
-**Step 2 — Final Weekly Premium:**
+**Step 2 - Final Weekly Premium:**
 
 $$Pr_{final} = (E_w \times L_f \times C_t) \times (1 + M)$$
 
 | Variable | Meaning |
 |---|---|
-| `Pᵢ` | Probability of disruption `i` occurring in the worker's zone this week — fetched from weather / AQI / govt APIs |
-| `Sᵢ` | Severity of disruption `i` — based on frequency and timing (e.g., an event during 12–3 PM peak causes ~40% income loss vs. off-peak) |
+| `Pᵢ` | Probability of disruption `i` occurring in the worker's zone this week - fetched from weather / AQI / govt APIs |
+| `Sᵢ` | Severity of disruption `i` - based on frequency and timing (e.g., an event during 12–3 PM peak causes ~40% income loss vs. off-peak) |
 | `Eᵥᵥ` | Worker's expected weekly earnings baseline (from platform activity history) |
-| `Cₜ` | Coverage tier factor — the income replacement % for the selected tier (Basic / Standard / Premium) |
-| `M` | Risk pool margin — ensures platform sustainability and covers correlated catastrophic events |
+| `Cₜ` | Coverage tier factor - the income replacement % for the selected tier (Basic / Standard / Premium) |
+| `M` | Risk pool margin - ensures platform sustainability and covers correlated catastrophic events |
 
-**Setting `Cₜ` and `M`:** Treated as a constrained optimisation problem. Monte Carlo simulations over historical weather and disruption patterns balance maximum market competitiveness (higher `Cₜ`) against the ruin probability of the risk pool — ensuring sufficient surplus to cover claims without exhausting capital reserves.
+**Setting `Cₜ` and `M`:** Treated as a constrained optimisation problem. Monte Carlo simulations over historical weather and disruption patterns balance maximum market competitiveness (higher `Cₜ`) against the ruin probability of the risk pool - ensuring sufficient surplus to cover claims without exhausting capital reserves.
 
 ### Policy Tiers
 
@@ -114,7 +114,7 @@ $$Pr_{final} = (E_w \times L_f \times C_t) \times (1 + M)$$
 |---|---|---|
 | India Meteorological Department (IMD) | Rain, Flood, Extreme Heat, Heatwave | [mausam.imd.gov.in](https://mausam.imd.gov.in/imd_latest/contents/api.pdf) |
 | OpenWeather API | Weather signals (supplementary) | [openweathermap.org](https://openweathermap.org/guide) |
-| OpenAQ API | AQI — Hazardous / Severe levels | [docs.openaq.org](https://docs.openaq.org/) |
+| OpenAQ API | AQI - Hazardous / Severe levels | [docs.openaq.org](https://docs.openaq.org/) |
 | India Open Data Portal | Government alerts, zone data | [data.gov.in](https://www.data.gov.in/) |
 | MOSDAC (ISRO) | Satellite weather, flood monitoring | [mosdac.gov.in](https://www.mosdac.gov.in/) |
 | India Water Resources (FFS) | Flood / river level data | [ffs.india-water.gov.in](https://ffs.india-water.gov.in/) |
@@ -196,7 +196,7 @@ External Data Sources (ingested continuously):
   - Platform Demand Drop (Swiggy / Zomato feed)
 
   → Data Normalisation Engine
-  → Parametric Trigger Engine — Threshold Detection via Kafka Event Stream
+  → Parametric Trigger Engine - Threshold Detection via Kafka Event Stream
 
 Trigger thresholds (examples):
   - Rainfall > 60mm in 24h
@@ -239,7 +239,7 @@ Claim Stored in Data Warehouse (S3)
   → Insurer Dashboard Updated
 ```
 
-The Risk Pool Service continuously tracks the ratio of premiums collected to claims paid. This data flows back into the AI Risk Engine to recalibrate risk scores, update disruption probability models, and adjust future premium pricing — forming a closed feedback loop.
+The Risk Pool Service continuously tracks the ratio of premiums collected to claims paid. This data flows back into the AI Risk Engine to recalibrate risk scores, update disruption probability models, and adjust future premium pricing - forming a closed feedback loop.
 
 ---
 
@@ -315,7 +315,7 @@ The model is continuously improved using manual-review outcomes, confirmed fraud
 
 To defend against coordinated GPS spoofing attacks, Myrva does not trust raw location alone. We treat every payout decision as a **multi-signal integrity problem** across behavior, device, network, and event context.
 
-### 1. The Differentiation — Real Worker vs Spoofer
+### 1. The Differentiation - Real Worker vs Spoofer
 
 The decision engine combines a deterministic rule layer with an ML risk layer to separate genuinely stranded workers from synthetic claim behavior:
 
@@ -327,7 +327,7 @@ The decision engine combines a deterministic rule layer with an ML risk layer to
 
 The output is a calibrated `Fraud Score (0-1)` used with policy eligibility checks before payout.
 
-### 2. The Data — Signals Beyond Basic GPS
+### 2. The Data - Signals Beyond Basic GPS
 
 To detect sophisticated spoofing campaigns, the fraud pipeline analyzes cross-layer features:
 
@@ -340,7 +340,7 @@ To detect sophisticated spoofing campaigns, the fraud pipeline analyzes cross-la
 
 These features are evaluated in both **real-time scoring** (claim-time defense) and **batch graph analytics** (ring discovery and model retraining).
 
-### 3. The UX Balance — Protect Honest Workers While Blocking Fraud
+### 3. The UX Balance - Protect Honest Workers While Blocking Fraud
 
 Myrva uses progressive friction, not blanket rejection, so workers facing real disruption are not unfairly penalized.
 
@@ -379,9 +379,9 @@ The Development Plan is Linked to [Development Plan](./TODO.md)
 |---|---|
 | PostgreSQL | Worker profiles, policy records, identity data |
 | TimescaleDB (PostgreSQL extension) | Time-series storage for weather readings, AQI, GPS logs, zone trigger history |
-| PostGIS (PostgreSQL extension) | Geospatial queries — zone-based eligibility, GPS validation |
+| PostGIS (PostgreSQL extension) | Geospatial queries - zone-based eligibility, GPS validation |
 | MongoDB | Worker activity logs, claim records |
-| Redis (Feature Store) | Real-time ML feature serving — risk scores, earnings data, weather features, location signals |
+| Redis (Feature Store) | Real-time ML feature serving - risk scores, earnings data, weather features, location signals |
  
 - Chose React Native to enable real-time, location-aware interactions (GPS, notifications) and provide a more reliable, performant experience for workers compared to a web app.
 
