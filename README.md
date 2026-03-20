@@ -386,7 +386,7 @@ The Development Plan is Linked to [Development Plan](./TODO.md)
 | MongoDB | Worker activity logs, claim records |
 | Redis (Feature Store) | Real-time ML feature serving - risk scores, earnings data, weather features, location signals |
  
-- Chose React Native to enable real-time, location-aware interactions (GPS, notifications) and provide a more reliable, performant experience for workers compared to a web app.
+- Chose React Native to support real-time, location-based features (such as GPS and notifications) while delivering a more reliable and high-performance experience for workers compared to a web application.
 
 ---
 
