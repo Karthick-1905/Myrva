@@ -4,6 +4,7 @@ export * from './schemas/worker.schema';
 export * from './schemas/claims.schema';
 export * from './schemas/trigger.schema';
 export * from './schemas/tier-event-coverage.schema';
+export * from './schemas/risk-scores.schema';
 
 
 import * as policySchema from './schemas/policy.schema';
@@ -11,6 +12,7 @@ import * as workerSchema from './schemas/worker.schema';
 import * as claimsSchema from './schemas/claims.schema';
 import * as triggerSchema from './schemas/trigger.schema';
 import * as tierEventCoverageSchema from './schemas/tier-event-coverage.schema';
+import * as riskScoresSchema from "./schemas/risk-scores.schema"
 
 
 export const schema = {
@@ -19,6 +21,7 @@ export const schema = {
   ...claimsSchema,
   ...triggerSchema,
   ...tierEventCoverageSchema,
+  ...riskScoresSchema
 };
 
 // TypeScript type inference exports
@@ -67,3 +70,8 @@ export type NewTriggerEvent = InferInsertModel<typeof triggerSchema.triggerEvent
 // Tier Event Coverage Types
 export type TierEventCoverage = InferSelectModel<typeof tierEventCoverageSchema.tierEventCoverage>;
 export type NewTierEventCoverage = InferInsertModel<typeof tierEventCoverageSchema.tierEventCoverage>;
+
+// Risk Score Types
+
+export type RiskScores = InferSelectModel<typeof riskScoresSchema.riskScores>
+export type newRiskScores = InferInsertModel<typeof riskScoresSchema.riskScores> 
