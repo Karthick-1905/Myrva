@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import sampleRoutes from './routes/sample.route'
+import authRoutes from './routes/auth.route'
 import { ApiError, ApiResponse } from './utils'
 import errorHandler from './middlewares/errorHandler'
 import morgan from 'morgan'
@@ -19,6 +20,7 @@ app.get('/', (_req: Request, res: Response) => {
 })
 
 app.use('/api/v1', sampleRoutes)
+app.use('/api/v1/auth', authRoutes)
 
 app.use((_req: Request, _res: Response, next) => {
     next(new ApiError(404, 'Route not found'))
