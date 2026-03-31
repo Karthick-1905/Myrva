@@ -10,6 +10,6 @@ export const sampleController = asyncHandler('sampleContoller', async (_req: Req
         or throw new ApiError(statusCode, "message")
     }
     */
-    throw new Error("Hello There")
+    //throw new Error("Hello There")
     res.status(200).json(new ApiResponse<string>(200, 'Sample Controller', "Hello This is data"))
 })
