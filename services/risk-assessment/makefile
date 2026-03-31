@@ -1,23 +1,11 @@
-init:
-	@docker compose up airflow-init
+run:
+	uvicorn run main:app
 
-up:
-	@docker compose up -d
+migration-init:
+	alembic init alembic
 
-down:
-	@docker compose down -v
+migrate-up:
+	alembic upgrade head
 
-ps:
-	@docker compose ps
-
-logs-webserver:
-	@docker compose logs airflow-webserver
-
-logs-scheduler:
-	@docker compose logs airflow-scheduler
-
-clean:
-	@docker compose down -v
-	@rm -rf logs/*
-	@rm -rf plugins/*
-	@rm -rf dags/*
+migrate-down:
+	alembic downgrade -1
